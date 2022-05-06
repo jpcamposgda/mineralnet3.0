@@ -3,33 +3,34 @@
 
    
       
-      <v-nav>
+      <nav>
         <v-img 
           :src="require('../../img/Group 1.png')"
           class="group1"
         />
-<img src="" alt="">
-        </v-nav>
-       
+
+     </nav>
+       <form @submit.prevent="efetuarLogin" >
         <div class=" centralizar   mt-14">
           
          <span class="label">Documento (CPF/CNPJ)</span>
          
-         <input type="email" class="input mb-7 	 input-text " placeholder="Informe seu documento">
+         <input type="email" v-model="usuario.email" class="input mb-7  	 input-text " placeholder="Informe seu documento">
          
          <span class="label">Senha</span>
          
-         <input type="password" class="input input-text " placeholder="Informe sua senha" required  >
+         <input type="password" v-model="usuario.password" class="input input-text " placeholder="Informe sua senha" required  >
          
          
         <div class="text-right my-5 "> <span > <a class="link"   href="">Esqueci minha senha</a> </span></div>
          
          
         </div>
+        
 <div class=" mt-16   centralizar">
-  <v-btn type="submit"  class="buttons1  mt-6 px-4" > Entrar </v-btn>
+  <button type="submit"  class="buttons1  mt-6 px-4" > Entrar </button>
   
-  <v-btn type="submit"  class="  mt-6 px-4 buttons " >Quero me cadastrar</v-btn>
+  <button type="submit"  class="  mt-6 px-4 buttons " >Quero me cadastrar</button>
    
   
   
@@ -38,14 +39,57 @@
      
          
       
-        
+    </form>    
    
 </template>
 
 <script>
 
+import { useUserStore } from "@/store/users"
+
+import http from "@/plugins" 
+
 export default {
+
+  
   name: 'HelloWorld',
+
+  
+
+ data () {
+        const userStore = useUserStore()
+
+        userStore.user
+
+        return {
+            usuario: {}
+        }
+    },
+
+
+methods: {
+  
+    efetuarLogin () {
+
+      
+      
+      http.post('auth/login', this.usuario)
+             .then(response => {
+                 
+              console.log(response)   
+              const useStore = useUserStore()
+
+              useStore.token = response.data.accessToken
+              useStore.tokenrefresh = response.data.refreshToken
+              useStore.user = response.data.user
+                 
+                 localStorage.setItem('token', response.data.access_token)
+                 this.$router.push({ name: 'about' })
+
+             })
+             .catch(erro => console.log(erro))
+    }
+}
 
   
 }
