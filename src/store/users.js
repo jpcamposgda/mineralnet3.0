@@ -12,5 +12,7 @@ export const useUserStore = defineStore('users', {
    getters: {
     isAuthenticated: (state) => !(Object.keys(state.user).length == 0),
   },
+
+  
   
 })

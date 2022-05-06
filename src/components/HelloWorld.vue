@@ -15,14 +15,16 @@
           
          <span class="label">Documento (CPF/CNPJ)</span>
          
-         <input type="email" v-model="usuario.email" class="input mb-7  	 input-text " placeholder="Informe seu documento">
-         
+         <input type="email"  v-model="usuario.email" class="input mb-2 input-text" placeholder="Informe seu documento">
+         <p class="erro" v-if="mensagemErro" > {{ mensagemErro }}   </p>
          <span class="label">Senha</span>
          
-         <input type="password" v-model="usuario.password" class="input input-text " placeholder="Informe sua senha" required  >
-         
+         <input type="password" v-model="usuario.password" class="input mb-2  input-text " placeholder="Informe sua senha" required  >
+         <p class="erro" v-if="mensagemErro1" > {{ mensagemErro1 }}   </p>
          
         <div class="text-right my-5 "> <span > <a class="link"   href="">Esqueci minha senha</a> </span></div>
+
+       
          
          
         </div>
@@ -62,7 +64,13 @@ export default {
         userStore.user
 
         return {
-            usuario: {}
+            usuario: {},
+            
+            mensagemErro: '',
+
+            mensagemErro1: ''
+
+            
         }
     },
 
@@ -76,26 +84,35 @@ methods: {
       http.post('auth/login', this.usuario)
              .then(response => {
                  
-              console.log(response)   
+               
               const useStore = useUserStore()
 
               useStore.token = response.data.accessToken
               useStore.tokenrefresh = response.data.refreshToken
               useStore.user = response.data.user
                  
-                 localStorage.setItem('token', response.data.access_token)
+                //  localStorage.setItem('token', response.data.access_token)
                  this.$router.push({ name: 'about' })
 
              })
-             .catch(erro => console.log(erro))
+             .catch(erro => {
+               if (erro.request.status == 401){
+
+                 this.mensagemErro = "CPF ou CNPJ não cadastrado";
+                 this.mensagemErro1 = "Senha incorreta";
+
+               }
+             } );
     }
 }
 
   
-}
+};
 </script>
 
 <style scoped>
+
+
 
 
 .centralizar{
@@ -200,6 +217,8 @@ color: #B4771C;
   text-decoration: underline;
 }
 
+
+
 .buttons1{
 /* Bottom */
 
@@ -287,6 +306,26 @@ text-align: center;
 color: #B4771C;
 text-transform: initial;
 
+}
+
+.erro{
+  position: static;
+width: 167px;
+height: 16px;
+left: 0px;
+top: 84px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+/* identical to box height, or 133% */
+
+
+color: #AD0100;
+
+opacity: 0.5;
 }
 
 

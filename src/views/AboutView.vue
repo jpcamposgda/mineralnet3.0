@@ -36,7 +36,9 @@ user.token
         // user.removeItem('token') 
         user.token = null
         user.tokenrefresh = null
-        user.user = null
+        user.user = {}
+
+        
         
         this.$router.push({name: 'home'})
       console.log('Logout')  
