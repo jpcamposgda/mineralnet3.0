@@ -9,6 +9,9 @@ export const useUserStore = defineStore('users', {
 
     user: {},
    }),
+   
+   persist: true,
+   
    getters: {
     isAuthenticated: (state) => !(Object.keys(state.user).length == 0),
   },
