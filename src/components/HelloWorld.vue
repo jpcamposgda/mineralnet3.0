@@ -15,11 +15,11 @@
           
          <span class="label">Documento (CPF/CNPJ)</span>
          
-         <input type="email"  v-model="usuario.email" class="input mb-2 input-text" placeholder="Informe seu documento">
+         <input type="email"  v-model="usuario.email" class="input mb-2 input-text" id="jp" placeholder="Informe seu documento">
          <p class="erro" v-if="mensagemErro" > {{ mensagemErro }}   </p>
          <span class="label">Senha</span>
          
-         <input type="password" v-model="usuario.password" class="input mb-2  input-text " placeholder="Informe sua senha" required  >
+         <input type="password" v-model="usuario.password" class="input mb-2  input-text "  placeholder="Informe sua senha" required  >
          <p class="erro" v-if="mensagemErro1" > {{ mensagemErro1 }}   </p>
          
         <div class="text-right my-5 "> <span > <a class="link"   href="">Esqueci minha senha</a> </span></div>
@@ -76,8 +76,7 @@ export default {
 
 
 methods: {
-  
-    efetuarLogin () {
+      efetuarLogin () {
 
       
       
@@ -91,7 +90,7 @@ methods: {
               useStore.tokenrefresh = response.data.refreshToken
               useStore.user = response.data.user
                  
-                //  localStorage.setItem('token', response.data.access_token)
+                 localStorage.setItem('token', response.data.accessToken)
                  this.$router.push({ name: 'about' })
 
              })
@@ -100,6 +99,11 @@ methods: {
 
                  this.mensagemErro = "CPF ou CNPJ não cadastrado";
                  this.mensagemErro1 = "Senha incorreta";
+
+
+                document.getElementsByTagName('input')[0].style.borderColor = '#AD0100'
+                document.getElementsByTagName('input')[1].style.borderColor = '#AD0100'
+                
 
                }
              } );
