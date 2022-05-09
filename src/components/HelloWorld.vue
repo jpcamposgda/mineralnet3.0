@@ -32,7 +32,37 @@
 <div class=" mt-16   centralizar">
   <button type="submit"  class="buttons1  mt-6 px-4" > Entrar </button>
   
-  <button type="submit"  class="  mt-6 px-4 buttons " >Quero me cadastrar</button>
+  <button type="submit" v-show="!mensagemErro2"     class="  mt-6 px-4 buttons " >Quero me cadastrar</button>
+  
+  <label class="labelError mt-5 " v-show="mensagemErro2" >
+
+    
+
+     
+     <img 
+          :src="require('../../img/i.png')"
+          class="exclamacao"
+        
+        />
+        
+
+        <div class="caixacpf"><p>CPF/CNPJ não encontrado</p></div>
+         
+
+       
+       
+       
+
+     
+     <span  > <img 
+          :src="require('../../img/x.png')"
+          class="cancel "
+        /></span>
+       
+   
+
+  </label>
+
    
   
   
@@ -68,7 +98,9 @@ export default {
             
             mensagemErro: '',
 
-            mensagemErro1: ''
+            mensagemErro1: '',
+            
+            mensagemErro2: '',
 
             
         }
@@ -99,6 +131,7 @@ methods: {
 
                  this.mensagemErro = "CPF ou CNPJ não cadastrado";
                  this.mensagemErro1 = "Senha incorreta";
+                 this.mensagemErro2 = "CPF/CNPJ não encontrado"
 
 
                 document.getElementsByTagName('input')[0].style.borderColor = '#AD0100'
@@ -149,6 +182,41 @@ opacity: 0.5;
 
 
 
+}
+
+.labelError{
+
+  display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px 16px 16px 5px;
+
+position: static;
+
+height: 56px;
+left: 24px;
+top: 0px;
+
+background: #AD0100;
+border-radius: 8px;
+color: #FFFFFF;
+position: static;
+
+
+
+
+/* Q-Body/14 px */
+
+font-family: 'Nunito Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+/* identical to box height, or 150% */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.21px;
 }
 
 
@@ -330,8 +398,29 @@ line-height: 16px;
 color: #AD0100;
 
 opacity: 0.5;
+
 }
 
+
+.exclamacao{
+
+width: 20px;
+height: 20px;
+margin: 18px 10px 18px 18px;
+
+}
+
+.cancel{
+
+width: 14px;
+height: 14px;
+margin: 13px;
+}
+
+.caixacpf{
+
+  width: 231px
+}
 
 
 </style>
