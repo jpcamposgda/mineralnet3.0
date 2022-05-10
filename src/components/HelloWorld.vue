@@ -34,38 +34,46 @@
   
   <button type="submit" v-show="!mensagemErro2"     class="  mt-6 px-4 buttons " >Quero me cadastrar</button>
   
-  <label class="labelError mt-5 " v-show="mensagemErro2" >
+  
+  <div class="labelError mt-5 " v-show="mensagemErro2">
+
+  
 
     
 
      
+     
      <img 
           :src="require('../../img/i.png')"
           class="exclamacao"
-        
+         
         />
         
 
-        <div class="caixacpf"><p>CPF/CNPJ não encontrado</p></div>
+        <div class="caixacpf"><p >CPF/CNPJ não encontrado</p></div>
          
 
        
        
        
 
-     
-     <span  > <img 
+          <button @click.prevent="mensagemErro2 = !mensagemErro2" >
+          <img
           :src="require('../../img/x.png')"
-          class="cancel "
-        /></span>
+          class="cancel"
+         
+          
+          
+        />
+       </button>
        
    
 
-  </label>
+  
 
    
   
-  
+  </div>
 </div>
         
      
@@ -93,6 +101,8 @@ export default {
 
         userStore.user
 
+       
+
         return {
             usuario: {},
             
@@ -103,11 +113,20 @@ export default {
             mensagemErro2: '',
 
             
+
+           
+
+            
         }
     },
 
 
 methods: {
+
+  
+
+ 
+
       efetuarLogin () {
 
       
@@ -415,6 +434,7 @@ margin: 18px 10px 18px 18px;
 width: 14px;
 height: 14px;
 margin: 13px;
+cursor: pointer;
 }
 
 .caixacpf{

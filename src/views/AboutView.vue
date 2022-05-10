@@ -1,5 +1,5 @@
 <template>
-<nav>
+<nav v-show="autenticado" >
   <div class="home">
     
   <span  class="j" @click.prevent="logout" >Logout</span>
@@ -8,21 +8,40 @@
 
   
   </nav>
+
+  <nav > <h1>Você está acessando a página sem permissão!!!!</h1> </nav>
 </template>
 
 
 <script>
 
+
+
+
 import { useUserStore } from "@/store/users";
 
-  export default {
+const user = useUserStore()
+
+const autenticado = user.isAuthenticated
+
+console.log(autenticado)
+
+
+export default {
     name: 'HelloWorld',
+
+
 
     setup(){
 
 const user = useUserStore();
 
-user.token
+
+
+ user.token
+
+
+
 
     },
      
@@ -38,11 +57,17 @@ user.token
         user.tokenrefresh = null
         user.user = {}
 
+
+        
         
         
         this.$router.push({name: 'home'})
       console.log('Logout')  
-     }
+     },
+
+     
+
+
   },
      
      
