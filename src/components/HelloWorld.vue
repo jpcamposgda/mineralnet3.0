@@ -32,7 +32,6 @@
 <div class=" mt-16   centralizar">
   <button type="submit"  class="buttons1  mt-6 px-4" > Entrar </button>
   
-  <button type="submit" v-show="!mensagemErro2"     class="  mt-6 px-4 buttons " >Quero me cadastrar</button>
   
   
   <div class="labelError mt-5 " v-show="mensagemErro2">
@@ -79,13 +78,19 @@
      
          
       
-    </form>    
+    </form>   
+    
+    <div  class="mt-2 centralizar">
+  <router-link class="link__cadastro" to="/cadastro-clientes" >   <button  v-show="!mensagemErro2"      class="  mt-6 px-4 buttons "> Quero me cadastrar</button></router-link>
+  </div>
    
 </template>
 
 <script>
 
 import { useUserStore } from "@/store/users"
+
+
 
 import http from "@/plugins" 
 
@@ -168,6 +173,18 @@ methods: {
 
 <style scoped>
 
+.group1{
+  
+
+
+
+}
+
+
+.link__cadastro{
+
+  text-decoration: none;
+}
 
 
 
